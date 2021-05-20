@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'customer/style.css' %}">
+    <!-- Login CSS -->
+    <link rel="stylesheet" href="{% static 'customer/authenticate.css' %}">
+</head>
+
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="fixed shadow">
+            <div class="wrapper">
+                <div class="logo"><a href="{% url 'index' %}">Order</a></div>
+                <div class="action">
+                    <a href="login.html" class="login">Login</a>
+                    <a href="{% url 'register_view' %}" class="register btn">Register</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Section -->
+        <section>
+            <div class="main-app">
+                {% block main %}
+
+                {% endblock %}
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+
+        </footer>
+    </div>
+</body>
+
+</html>

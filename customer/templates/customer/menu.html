@@ -1,0 +1,7 @@
+<div class="menu fixed background-white shadow">
+    <ul class="margin-10">
+        {% for item in category %}
+        <li class="item"><a href="#{{ item.name_category }}">{{item.name_category}}</a></li>
+        {% endfor %}
+    </ul>
+</div>
