@@ -4,19 +4,25 @@
 <div class="center-wrapper">
     <div class="login-box shadow">
         <h2>Register</h2>
-        <form action="">
+        <form action="{% url 'store-info' %}" method="post">
+            {% csrf_token %}
             <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username">
+                <label for="first-name">First Name:</label>
+                <input type="text" id="first-name" required name="first-name">
             </div>
             <div class="form-group">
-                <label for="username">Password:</label>
-                <input type="text" id="username">
+                <label for="last-name">Last Name:</label>
+                <input type="text" id="last-name" required name="last-name">
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="text" id="email">
+                <input type="email" id="email" required name="email">
             </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" required name="password">
+            </div>
+            <!-- RePassword -->
             <div class="form-group">
                 <button class="btn">Submit</button>
             </div>
