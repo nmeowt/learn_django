@@ -100,12 +100,14 @@ header {
     color: #fff;
 }
 
-.login {
+.login,
+.customer-info {
     color: #f5f5f5;
     margin: 10px
 }
 
-.register {
+.register,
+.logout {
     background: #f5f5f5;
     color: var(--main-color);
     padding: 0 30px;

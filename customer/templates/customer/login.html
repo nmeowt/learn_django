@@ -1,0 +1,26 @@
+{% extends 'customer/base.html' %}
+
+{% block main %}
+<div class="center-wrapper">
+    <div class="login-box shadow">
+        <h2>Login</h2>
+        <form action="{% url 'login_process' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+            </div>
+            {% if error %}
+            <div class="error-message">{{ error }}</div>
+            {% endif %}
+            <div class="form-group">
+                <button class="btn">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -18,10 +18,18 @@
         <header class="fixed shadow">
             <div class="wrapper">
                 <div class="logo"><a href="{% url 'index' %}">Order</a></div>
+
+                {% if customer %}
+                <div class="profile">
+                    <a href="" class="customer-info">{{ customer }}</a>
+                    <a href="{% url 'logout' %}" class="logout btn">Logout</a>
+                </div>
+                {% else %}
                 <div class="action">
-                    <a href="login.html" class="login">Login</a>
+                    <a href="{% url 'login_view' %}" class="login">Login</a>
                     <a href="{% url 'register_view' %}" class="register btn">Register</a>
                 </div>
+                {% endif %}
             </div>
         </header>
 

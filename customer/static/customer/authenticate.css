@@ -46,3 +46,7 @@ input:focus {
 .form-group .btn {
     width: 100%;
 }
+
+.error-message {
+    color: var(--main-color);
+}
