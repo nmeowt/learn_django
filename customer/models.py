@@ -19,3 +19,23 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=100, unique=True)
     password = models.CharField(max_length=100)
+
+
+class Order(models.Model):
+    created_time = models.DateTimeField(auto_now_add=True, blank=True)
+    name_customer = models.CharField(
+        max_length=100, blank=True, null=True, default=None)
+    phone_number = models.CharField(
+        max_length=10, blank=True, null=True, default=None)
+    is_ordered = models.BooleanField(default=False)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+
+
+class Order_Detail(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    price = models.FloatField()
+    quantity = models.IntegerField()
+
+    class Meta:
+        unique_together = (('order'), ('product'))

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, login_process, login_view, logout, register_view, store_infomation
+from .views import index, login_process, login_view, logout, register_view, store_infomation, add_to_cart
 
 urlpatterns = [
     path('', index, name="index"),
@@ -13,4 +13,5 @@ urlpatterns = [
     path('login-process', login_process, name="login_process"),
     # Đăng xuất
     path('logout', logout, name="logout"),
+    path('add-to-cart/<int:id>/', add_to_cart, name="add_to_cart"),
 ]

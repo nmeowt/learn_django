@@ -25,6 +25,7 @@
                     <div class="product-title">{{ item.name_product }}</div>
                     <div class="product-description">{{ item.description }}</div>
                     <div class="product-prices">{{ item.price }} ₫</div>
+                    <a href="{% url 'add_to_cart' item.id %}" class="btn">Add to cart</a>
                 </div>
             </div>
             {% endfor %}
