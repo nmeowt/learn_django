@@ -279,6 +279,10 @@ a {
     text-align: left;
 }
 
+.cart-item:last-child {
+    border: none;
+}
+
 .quantity {
     background: var(--main-color);
 

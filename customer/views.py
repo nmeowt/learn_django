@@ -11,20 +11,30 @@ def index(request):
         # Lấy tất cả dữ liệu của 1 bảng: Objects.all()
         category = Category.objects.all()
         product = Product.objects.all()
-        # customer = Customer.objects.get(email=email_customer)
-        # order = Order.objects.filter(is_ordered=False, customer=customer)
-        # order_details = Order_Detail.objects.complex_filter(order=order)
-        # print(order_details)
+        customer = Customer.objects.get(email=email_customer)
+        order = Order.objects.filter(is_ordered=False, customer=customer)
+        order_detail = []
+        if order:
+            order_detail = Order_Detail.objects.filter(order=order.first())
 
         context = {
             "category": category,
             "product": product,
-            "customer": email_customer
+            "customer": email_customer,
+            "order_detail": order_detail,
+            "total": get_cart_total(order_detail)
         }
         # dữ liệu được đưa vào phải là dictionary {}
         return render(request, "customer/index.html", context)
 
     return redirect('login_view')
+
+
+def get_cart_total(order_detail):
+    total = 0
+    for item in order_detail:
+        total += item.get_item_price()
+    return total
 
 
 def register_view(request):
@@ -89,7 +99,8 @@ def add_to_cart(request, id):
         order = Order.objects.last()
         order_detail = Order_Detail.objects.filter(
             order=order, product=product)
-        if order == None:
+
+        if order.is_ordered == True:
             customer = Customer.objects.get(email=email)
             order = Order()
             order.customer = customer
@@ -106,4 +117,27 @@ def add_to_cart(request, id):
             order_detail.quantity = 1
             order_detail.save()
 
+    return redirect('index')
+
+
+def payment_view(request):
+    if 'customer' in request.session:
+        email_customer = request.session['customer']
+        context = {
+            "customer": email_customer,
+        }
+    return render(request, 'customer/payment.html', context)
+
+
+def store_payment_information(request):
+    name_customer = request.POST.get('full-name')
+    phone = request.POST.get('phone')
+    address = request.POST.get('address')
+    note = request.POST.get('note')
+    if 'customer' in request.session:
+        email = request.session['customer']
+        customer = Customer.objects.get(email=email)
+        order = Order.objects.filter(customer=customer)
+        order.update(name_customer=name_customer, phone_number=phone,
+                     address=address, note=note, is_ordered=True)
     return redirect('index')

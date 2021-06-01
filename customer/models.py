@@ -27,15 +27,24 @@ class Order(models.Model):
         max_length=100, blank=True, null=True, default=None)
     phone_number = models.CharField(
         max_length=10, blank=True, null=True, default=None)
+    address = models.CharField(
+        max_length=255, blank=True, null=True, default=None)
+    note = models.CharField(
+        max_length=255, blank=True, null=True, default=None)
     is_ordered = models.BooleanField(default=False)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
 
 class Order_Detail(models.Model):
+    # properties
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     price = models.FloatField()
     quantity = models.IntegerField()
+
+    # methods
+    def get_item_price(self):
+        return self.price * self.quantity
 
     class Meta:
         unique_together = (('order'), ('product'))
